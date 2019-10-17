@@ -20,6 +20,7 @@ class CreateDevAppDetailsTable extends Migration
             $table->string('company_address');
             $table->string('company_contact');
             $table->string('company_logo')->default('logo.png');
+            $table->string('brand_logo')->default('brand.png');
             $table->string('app_icon')->default('favicon.ico');
             $table->timestamps();
         });

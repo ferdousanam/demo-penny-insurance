@@ -7,81 +7,89 @@
 @endpush
 
 @section('content')
-<div class="clearfix"></div>
-<div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>{{ Auth::user()->name }} <small></small></h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
-        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-          <div class="profile_img">
-            <div id="crop-avatar">
-              <!-- Current avatar -->
-              <img class="img-responsive avatar-view"
-                src="{{ asset('uploads/profile-image/'.Auth::user()->profile_image) }}" alt="Avatar"
-                title="Change the avatar">
+  <!--Begin::App-->
+  <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+
+    @include('Admin.profile.partials.left-side-widget')
+
+    <!--Begin:: App Content-->
+    <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="kt-portlet">
+            <div class="kt-portlet__head">
+              <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">User Information
+                </h3>
+              </div>
+              <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                  <div class="dropdown dropdown-inline">
+                    <button type="button" class="btn btn-label-brand btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="flaticon2-gear"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <ul class="kt-nav">
+                        <li class="kt-nav__section kt-nav__section--first">
+                          <span class="kt-nav__section-text">Actions</span>
+                        </li>
+                        <li class="kt-nav__item">
+                          <a href="{{ route('profile.edit', 0) }}" class="kt-nav__link">
+                            <i class="kt-nav__link-icon la la-print"></i>
+                            <span class="kt-nav__link-text">Edit</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <form class="kt-form kt-form--label-right">
+              <div class="kt-portlet__body">
+                <div class="kt-section kt-section--first">
+                  <div class="kt-section__body">
+                    <div class="row">
+                      <label class="col-xl-3"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <h3 class="kt-section__title kt-section__title-sm">User Info:</h3>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3">First Name</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <p class="">{{ Auth::user()->name }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-xl-3"></label>
+                      <div class="col-lg-9 col-xl-6">
+                        <h3 class="kt-section__title kt-section__title-sm">Contact Info:</h3>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3">Address</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <p class="">{{ Auth::user()->profile->address }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          <h3>{{ Auth::user()->name }}</h3>
-
-          <ul class="list-unstyled user_data">
-            <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
-            </li>
-
-            <li>
-              <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
-            </li>
-
-            <li class="m-top-xs">
-              <i class="fa fa-external-link user-profile-icon"></i>
-              <a href="https://ferdousanam.herokuapp.com" target="_blank">www.ferdousanam.herokuapp.com</a>
-            </li>
-          </ul>
-
-          <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-          <br />
-
-          <!-- start skills -->
-          <h4>Skills</h4>
-          <ul class="list-unstyled user_data">
-            <li>
-              <p>Web Applications</p>
-              <div class="progress progress_sm">
-                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-              </div>
-            </li>
-            <li>
-              <p>Website Design</p>
-              <div class="progress progress_sm">
-                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>
-              </div>
-            </li>
-            <li>
-              <p>Automation & Testing</p>
-              <div class="progress progress_sm">
-                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>
-              </div>
-            </li>
-            <li>
-              <p>UI / UX</p>
-              <div class="progress progress_sm">
-                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-              </div>
-            </li>
-          </ul>
-          <!-- end of skills -->
-
         </div>
       </div>
     </div>
+
+    <!--End:: App Content-->
   </div>
-</div>
+
+  <!--End::App-->
 
 @endsection
 @push('scripts')
-<!-- bootstrap-progressbar -->
-<script src="{{asset('assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+  <script>
+      $('#profile-overview-link').addClass('kt-widget__item--active');
+  </script>
 @endpush

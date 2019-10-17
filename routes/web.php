@@ -1,7 +1,4 @@
 <?php
-
-use Carbon\Carbon;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +25,7 @@ Route::get('/', function () {
 
 // Developer Routes
 Route::group(['namespace' => 'DevCon', 'middleware' => ['auth', 'CheckSuperUser']], function () {
-    Route::get('dev-mode/{switch}', 'DevOptionController@devOptions');
+    Route::get('dev-mode/{switch}', 'DevOptionController@devOptions')->name('dev-mode');
     Route::resource('main-menu', 'MenuController');
     Route::resource('sub-menu', 'SubMenuController');
 });
@@ -43,17 +40,19 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth', 'CheckSuperU
 
 // User Routes only auth permission
 Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth']], function () {
+    // Avatar Changing Routes
+    Route::get('profile/change-avatar', 'ProfileController@editAvatar')->name('edit-avatar');
+    Route::post('profile/change-avatar', 'ProfileController@updateAvatar')->name('update-avatar');
+    // Change Password Routes
+    Route::get('profile/change-password', 'ProfileController@editPassword')->name('edit-password');
+    Route::post('profile/change-password', 'ProfileController@updatePassword')->name('update-password');
+    // Profile Routes
     Route::resource('profile', 'ProfileController');
 });
 
 // User Routes with different permission
 Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth', 'checkPermission']], function () {
     Route::resource('dashboard', 'DashboardController');
-});
-
-Route::get('dt', function () {
-    $date = Carbon::parse('2018-03-16 15:45')->locale('ja');
-    echo $date->rawFormat('D');
 });
 
 // Turned off Register Routes

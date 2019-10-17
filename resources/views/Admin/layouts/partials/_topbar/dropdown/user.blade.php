@@ -1,7 +1,7 @@
 <!--begin: Head -->
 <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
   <div class="kt-user-card__avatar">
-    <img class="kt-hidden" alt="Profile Image" src="{{ asset('uploads/profile-image/'.Auth::user()->profile_image) }}"/>
+    <img class="kt-hidden" alt="Profile Image" src="{{ (Auth::user()->profile_image) ? asset('uploads/profile-image/'.Auth::user()->profile_image) : asset('uploads/profile-image/default.png') }}"/>
 
     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
     <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{ loginUserBadge() }}</span>

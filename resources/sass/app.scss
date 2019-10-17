@@ -1,8 +1,18 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+//@import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
+
+@import "../../public/assets/css/pages/login/login-6.css";
+@import "../../public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css";
+@import "../../public/assets/plugins/custom/toastr.js/toastr.min.css";
+@import "./mystyle.css";
+
+// METRONIC theme CSS files
+//@import "../../public/assets/plugins/global/plugins.bundle.css";
+//@import "../../public/assets/css/style.bundle.css";
+// END METRONIC theme CSS files

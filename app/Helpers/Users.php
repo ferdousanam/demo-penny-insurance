@@ -23,8 +23,3 @@ function super_user() {
     }
 }
 
-function developer_mode() {
-    $dev = DB::table('dev_mode_setup')->first();
-    return $dev->developer_mode;
-}
-

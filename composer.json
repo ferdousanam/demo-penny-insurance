@@ -42,7 +42,9 @@
             "database/factories"
         ],
         "files": [
+            "app/Helpers/DevOptions.php",
             "app/Helpers/Menus.php",
+            "app/Helpers/ProjectInfo.php",
             "app/Helpers/Users.php"
         ]
     },

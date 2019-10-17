@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\BackEndCon;
 
+use App\Profile;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\AdminModel\Priority;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -61,6 +65,65 @@ class ProfileController extends Controller
         //
     }
 
+    public function editAvatar() {
+        $user = Auth::user();
+        return view('Admin.profile.edit-avatar', compact('user'));
+    }
+
+    public function updateAvatar(Request $request) {
+        $this->validate($request, [
+            'profile_avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $originalName = $name = $request->profile_avatar->getClientOriginalName();
+        $getImageName = time() . '-' . $originalName;
+
+        $upload = $request->profile_avatar->move(public_path('uploads/profile-image'), $getImageName);
+        if ($upload) {
+            $user_id = Auth::user()->id;
+            $user = User::find($user_id);
+            $oldAvatarPath = public_path() . '/uploads/profile-image/' . $user->profile_image;
+            if (file_exists($oldAvatarPath)) {
+                unlink($oldAvatarPath);
+            }
+            $update = $user->update(array('profile_image' => $getImageName));
+            if ($update) {
+                session()->flash('success', 'Profile Avatar Updated Successfully');
+            } else {
+                session()->flash('error', 'Something Went Wrong!');
+            }
+        } else {
+            session()->flash('error', 'Avatar upload failed!');
+        }
+        return redirect()->back();
+    }
+
+    public function editPassword() {
+        $user = Auth::user();
+        return view('Admin.profile.change-password', compact('user'));
+    }
+
+    public function updatePassword(Request $request) {
+//        dd(Hash::make($request->current_password));
+        $this->validate($request, [
+            'current_password' => ['required', 'string', 'min:3'],
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
+        ]);
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+
+        if (Hash::check($request->current_password, $user->password)) {
+            $update = $user->update(array('password' => Hash::make($request->password)));
+            if ($update) {
+                session()->flash('success', 'Password Updated Successfully');
+            } else {
+                session()->flash('error', 'Something Went Wrong!');
+            }
+        } else {
+            session()->flash('current_password', 'Your current password do not match!');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -69,8 +132,8 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $user_type = Priority::find($id);
-        return view('Admin.profile.edit', compact('user_type'));
+        $user = Auth::user();
+        return view('Admin.profile.edit', compact('user'));
     }
 
     /**
@@ -83,13 +146,30 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'priority_name' => 'required',
-            'priority_status' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
         ]);
-        $data = $request->all();
+        $user_id = Auth::user()->id;
+        $user_data = array(
+            'name' => $request->name,
+            'email' => $request->email,
+        );
+        $user = User::find($user_id);
 
-        $priority = Priority::find($id);
-        $update = $priority->update($data);
+
+        $hasProfile = Profile::where('user_id', $user_id)->first();
+        $profile_data = array(
+            'user_id' => $user_id,
+            'phone' => $request->phone,
+            'company_name' => $request->company_name,
+            'address' => $request->address,
+        );
+        if ($hasProfile){
+            $update = $hasProfile->update($profile_data);
+        }else {
+            $update = Profile::create($profile_data);
+        }
         if ($update) {
             session()->flash('success', 'Profile Updated Successfully');
         } else {
@@ -106,7 +186,7 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Priority::find($id)->delete();
+        $delete = Profile::find($id)->delete();
         if ($delete) {
             return response()->json(["success" => true]);
         } else {
