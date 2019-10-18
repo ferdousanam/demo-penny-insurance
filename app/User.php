@@ -37,6 +37,10 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  protected $dates = [
+      'last_login_at', 'last_failed_login_at'
+  ];
+
   public function profile(){
       return $this->hasOne(Profile::class);
   }

@@ -56,11 +56,18 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3">First Name</label>
+                      <label class="col-xl-3 col-lg-3">Last Successful Login</label>
                       <div class="col-lg-9 col-xl-6">
-                        <p class="">{{ Auth::user()->name }}</p>
+                        <p class="">{{ Auth::user()->last_login_at->format('d-m-Y H:i:s A') }}</p>
                       </div>
                     </div>
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3">Last Failed Login</label>
+                      <div class="col-lg-9 col-xl-6">
+                        <p class="">{{ Auth::user()->last_failed_login_at->format('d-m-Y H:i:s A') }}</p>
+                      </div>
+                    </div>
+                    <?php /* ?>
                     <div class="row">
                       <label class="col-xl-3"></label>
                       <div class="col-lg-9 col-xl-6">
@@ -73,6 +80,7 @@
                         <p class="">{{ (isset(Auth::user()->profile->address)) ? Auth::user()->profile->address : '' }}</p>
                       </div>
                     </div>
+                    <?php */ ?>
                   </div>
                 </div>
               </div>
