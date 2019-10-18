@@ -58,13 +58,13 @@
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3">Last Successful Login</label>
                       <div class="col-lg-9 col-xl-6">
-                        <p class="">{{ Auth::user()->last_login_at->format('d-m-Y H:i:s A') }}</p>
+                        <p class="">{{ (isset(Auth::user()->last_login_at)) ? Auth::user()->last_login_at->format('d-m-Y H:i:s A') : '' }}</p>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3">Last Failed Login</label>
                       <div class="col-lg-9 col-xl-6">
-                        <p class="">{{ Auth::user()->last_failed_login_at->format('d-m-Y H:i:s A') }}</p>
+                        <p class="">{{ (isset(Auth::user()->last_failed_login_at) ? Auth::user()->last_failed_login_at->format('d-m-Y H:i:s A') : '') }}</p>
                       </div>
                     </div>
                     <?php /* ?>

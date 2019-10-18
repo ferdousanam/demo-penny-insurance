@@ -27,8 +27,10 @@ class LogFailedLogin
      */
     public function handle(Failed $event)
     {
-        $event->user->last_failed_login_at = Carbon::now()->toDateTimeString();
-        $event->user->last_failed_login_ip = request()->getClientIp();
-        $event->user->save();
+        if ($event->user){
+            $event->user->last_failed_login_at = Carbon::now()->toDateTimeString();
+            $event->user->last_failed_login_ip = request()->getClientIp();
+            $event->user->save();
+        }
     }
 }

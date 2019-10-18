@@ -38,7 +38,7 @@ class User extends Authenticatable
   ];
 
   protected $dates = [
-      'last_login_at', 'last_failed_login_at'
+      'last_login_at', 'last_failed_login_at',
   ];
 
   public function profile(){
