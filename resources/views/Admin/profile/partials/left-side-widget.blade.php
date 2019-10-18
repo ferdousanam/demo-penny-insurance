@@ -110,11 +110,11 @@
             </div>
             <div class="kt-widget__info">
               <span class="kt-widget__label">Phone:</span>
-              <a href="#" class="kt-widget__data">{{ Auth::user()->profile->phone }}</a>
+              <a href="#" class="kt-widget__data">{{ (Auth::user()->profile->phone) ? Auth::user()->profile->phone : '' }}</a>
             </div>
             <div class="kt-widget__info">
               <span class="kt-widget__label">Location:</span>
-              <span class="kt-widget__data">{{ Auth::user()->profile->address }}</span>
+              <span class="kt-widget__data">{{ (Auth::user()->profile->address) ? Auth::user()->profile->address : '' }}</span>
             </div>
           </div>
           <div class="kt-widget__items">
