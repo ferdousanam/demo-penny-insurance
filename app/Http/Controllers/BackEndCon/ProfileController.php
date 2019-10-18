@@ -103,7 +103,6 @@ class ProfileController extends Controller
     }
 
     public function updatePassword(Request $request) {
-//        dd(Hash::make($request->current_password));
         $this->validate($request, [
             'current_password' => ['required', 'string', 'min:3'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
@@ -157,7 +156,6 @@ class ProfileController extends Controller
         );
         $user = User::find($user_id);
 
-
         $hasProfile = Profile::where('user_id', $user_id)->first();
         $profile_data = array(
             'user_id' => $user_id,
@@ -165,10 +163,15 @@ class ProfileController extends Controller
             'company_name' => $request->company_name,
             'address' => $request->address,
         );
-        if ($hasProfile){
-            $update = $hasProfile->update($profile_data);
-        }else {
-            $update = Profile::create($profile_data);
+        if ($user){
+            $update = $user->update($user_data);
+            if ($update){
+                if ($hasProfile){
+                    $update = $hasProfile->update($profile_data);
+                }else {
+                    $update = Profile::create($profile_data);
+                }
+            }
         }
         if ($update) {
             session()->flash('success', 'Profile Updated Successfully');

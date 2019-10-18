@@ -35,7 +35,7 @@
                         </li>
                         <li class="kt-nav__item">
                           <a href="{{ route('profile.edit', 0) }}" class="kt-nav__link">
-                            <i class="kt-nav__link-icon la la-print"></i>
+                            <i class="kt-nav__link-icon la la-pencil-square-o"></i>
                             <span class="kt-nav__link-text">Edit</span>
                           </a>
                         </li>
