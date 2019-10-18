@@ -78,7 +78,7 @@
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
                       <div class="col-lg-9 col-xl-6">
-                        <input class="form-control" type="text" name="company_name" value="{{ old('company_name', $user->profile->company_name) }}">
+                        <input class="form-control" type="text" name="company_name" value="{{ old('company_name', (isset($user->profile->company_name)) ? $user->profile->company_name : '') }}">
                         <span class="form-text text-danger">{{ ($errors->has('company_name')) ? $errors->first('company_name') : '' }}</span>
                         <span class="form-text text-muted">We don't share you company name info to others</span>
                       </div>
@@ -95,7 +95,7 @@
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="la la-phone"></i></span></div>
-                          <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->profile->phone) }}" placeholder="Phone" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" name="phone" value="{{ old('phone', (isset($user->profile->phone)) ? $user->profile->phone : '') }}" placeholder="Phone" aria-describedby="basic-addon1">
                         </div>
                         <span class="form-text text-danger">{{ ($errors->has('phone')) ? $errors->first('phone') : '' }}</span>
                         <span class="form-text text-muted">We'll never share your phone with anyone else.</span>
@@ -115,7 +115,7 @@
                     <div class="form-group form-group-last row">
                       <label class="col-xl-3 col-lg-3 col-form-label">Address</label>
                       <div class="col-lg-9 col-xl-6">
-                        <textarea name="address" id="address" class="form-control" rows="5" placeholder="Address">{{ old('address', $user->profile->address) }}</textarea>
+                        <textarea name="address" id="address" class="form-control" rows="5" placeholder="Address">{{ old('address', (isset($user->profile->address)) ? $user->profile->address : '') }}</textarea>
                         <span class="form-text text-danger">{{ ($errors->has('address')) ? $errors->first('address') : '' }}</span>
                       </div>
                     </div>
