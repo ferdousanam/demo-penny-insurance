@@ -70,7 +70,7 @@
                     <div class="form-group row">
                       <label class="col-xl-3 col-lg-3">Address</label>
                       <div class="col-lg-9 col-xl-6">
-                        <p class="">{{ (Auth::user()->profile->address) ? Auth::user()->profile->address : '' }}</p>
+                        <p class="">{{ (isset(Auth::user()->profile->address)) ? Auth::user()->profile->address : '' }}</p>
                       </div>
                     </div>
                   </div>
