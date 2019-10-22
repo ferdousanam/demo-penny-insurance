@@ -1,4 +1,4 @@
 // require('./bootstrap');
-require('../../public/assets/plugins/custom/toastr.js/toastr.min');
+window.toastr = require('toastr');
 require('./toastr-config');
 require('./custom');
